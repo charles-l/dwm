@@ -1,10 +1,7 @@
 /* See LICENSE file for copyright and license details. */
-#include "gaplessgrid.c"
-#include "moveresize.c"
-
 /* appearance */
 static const char *fonts[] = {
-	"bitbuntu:size=10"
+	"tewi-medium:size=10"
 };
 static const char dmenufont[]       = "-*-tewi-medium-*-*--*-*-*-*-*-*-*-*";
 static const char normbordercolor[] = "#2E2B38";
@@ -42,7 +39,6 @@ static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[T]",      tile },    /* first entry is default */
 	{ "[F]",      NULL },    /* no layout function means floating behavior */
-	{ "[G]",      gaplessgrid },
 	{ "[M]",      monocle },
 };
 
@@ -69,8 +65,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      focusmaster,    {0} },
-	{ MODKEY,                       XK_l,      unfocusmaster,  {0} },
+	//{ MODKEY,                       XK_h,      focusmaster,    {0} },
+	//{ MODKEY,                       XK_l,      unfocusmaster,  {0} },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_h,      setmfact,       {.f = -0.05} },
@@ -80,7 +76,6 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
@@ -100,15 +95,6 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_0,      quit,           {0} },
-	// TODO: move to ctrl-hjkl bindings using if statement
-	{ MODKEY, 						XK_Down,   moveresize, 	   {.v = "0x 25y 0w 0h"}},
-	{ MODKEY, 						XK_Up, 	   moveresize,     {.v = "0x -25y 0w 0h"}},
-	{ MODKEY, 						XK_Right,  moveresize,     {.v = "25x 0y 0w 0h"}},
-	{ MODKEY, 						XK_Left,   moveresize, 	   {.v = "-25x 0y 0w 0h"}},
-	{ MODKEY|ShiftMask, 			XK_Down,   moveresize,     {.v = "0x 0y 0w 25h"}},
-	{ MODKEY|ShiftMask, 			XK_Up,     moveresize,     {.v = "0x 0y 0w -25h"}},
-	{ MODKEY|ShiftMask, 			XK_Right,  moveresize,     {.v = "0x 0y 25w 0h"}},
-	{ MODKEY|ShiftMask, 			XK_Left,   moveresize, 	   {.v = "0x 0y -25w 0h"}},
 };
 
 /* button definitions */
