@@ -1,0 +1,52 @@
+#!/usr/bin/env lua
+
+function joinstr(t, start_i)
+  r = ""
+  for i, v in ipairs(t) do
+    if i >= start_i  then
+      if v:sub(1,1) == '#' then
+        r = r .. " '" .. v .. "'"
+      else
+        r = r .. " " .. v
+      end
+    end
+  end
+  return r
+end
+
+options = {
+  term = "urxvt";
+  edit = "urxvt -e vim";
+  minweb = "urxvt -e w3m";
+  web = "chromium";
+  play = "sc qaddpl `sc pl | grep starred | cut -d '|' -f1` && sc qrand && sc play 0";
+  spotify = "spotify";
+  steam = "steam";
+  loc = "loc";
+  pause = "sc pause";
+  settings = "urxvt -e sh -c 'cd ~/dev/dwm && vim config.h && sudo make install'";
+}
+
+o = "run\n"
+for k, v in pairs(options) do
+  o = o .. k .. "\n"
+end
+
+f = assert(io.popen("echo \"" .. o .. "\" | dmenu " .. joinstr(arg, 1) .. " -w 100 -x $(($(wattr w $(lsw -r)) / 4 - 50)) -y 200"))
+s = (f:read('*a')):gsub('^%s+',''):gsub('%s+$', '') .. " " -- dirty hack
+
+sep = " "; a = {}
+s:gsub("([^"..sep.."]*)"..sep, function(c) table.insert(a, c) end)
+
+rest = joinstr(a, 2)
+if(options[a[1]] == nil) then
+  if a[1] == "run" then
+    os.execute(rest)
+  elseif a[1] == "" then
+    os.exit(0)
+  else
+    os.execute("popup 'invalid option' &")
+  end
+  os.exit(0)
+end
+os.execute(options[a[1]] .. " " .. rest)

@@ -14,6 +14,10 @@ X11LIB = /usr/X11R6/lib
 XINERAMALIBS  = -lXinerama
 XINERAMAFLAGS = -DXINERAMA
 
+# comment if you don't want window swallowing
+SWALLOWINGLIBS = -lxcb -lX11-xcb -lxcb-res
+SWALLOWINGFLAGS = -DSWALLOWING
+
 # freetype
 FREETYPELIBS = -lfontconfig -lXft
 FREETYPEINC = /usr/include/freetype2

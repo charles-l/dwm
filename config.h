@@ -1,23 +1,25 @@
 /* See LICENSE file for copyright and license details. */
+
+#include <X11/XF86keysym.h>
+
 /* appearance */
 static const char *fonts[] = {
 	"tewi-medium:size=10"
 };
 static const char dmenufont[]       = "-*-tewi-medium-*-*--*-*-*-*-*-*-*-*";
-static const char normbordercolor[] = "#2E2B38";
-static const char normbgcolor[]     = "#1C1C1C";
-static const char normfgcolor[]     = "#FFA500";
-static const char selbordercolor[]  = "#FFA500";
-static const char selbgcolor[]      = "#151B1A";
-static const char selfgcolor[]      = "#EEEEEE";
-static const unsigned int borderpx  = 3;        /* border pixel of windows */
+static const char normbordercolor[] = "#657487";
+static const char normbgcolor[]     = "#48586F";
+static const char normfgcolor[]     = "#323640";
+static const char selbordercolor[]  = "#48586F";
+static const char selbgcolor[]      = "#48586F";
+static const char selfgcolor[]      = "#1C1E24";
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const int gappx              = 5;
 
 /* tagging */
-static const char *tags[] = { "-", "--", "---", "----", "-----"};
+static const char *tags[] = { "1", "2", "3", "4", "5"};
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -54,9 +56,10 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0";
 
-//static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *dmenucmd[] = { "menu", "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, "-l 10", NULL };
 static const char *termcmd[]  = { "urxvt", "-e", "tmux", NULL };
+static const char *raisevolumecmd[] = {"volume", "+"};
+static const char *lowervolumecmd[] = {"volume", "-"};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -85,6 +88,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ NULL, XF86XK_AudioRaiseVolume          , spawn,          {.v = raisevolumecmd } },
+	{ NULL, XF86XK_AudioLowerVolume          , spawn,          {.v = lowervolumecmd } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
