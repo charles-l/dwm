@@ -7,13 +7,13 @@ static const char *fonts[] = {
 	"tewi-medium:size=10"
 };
 static const char dmenufont[]       = "-*-tewi-medium-*-*--*-*-*-*-*-*-*-*";
-static const char normbordercolor[] = "#657487";
-static const char normbgcolor[]     = "#48586F";
-static const char normfgcolor[]     = "#323640";
-static const char selbordercolor[]  = "#48586F";
-static const char selbgcolor[]      = "#48586F";
-static const char selfgcolor[]      = "#1C1E24";
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const char normbordercolor[] = "#000000";
+static const char normbgcolor[]     = "#000000";
+static const char normfgcolor[]     = "#CCCCCC";
+static const char selbordercolor[]  = "#FFFFFF";
+static const char selbgcolor[]      = "#000000";
+static const char selfgcolor[]      = "#FFFFFF";
+static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
@@ -29,7 +29,7 @@ static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   isterminal noswallow monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           0,         0,        -1 },
 	{ "Chromium", NULL,       NULL,       1 << 8,       0,           0,         0,        -1 },
-	{ "URxvt",    NULL,       NULL,       0,            0,           1,         1,        -1 },
+	{ "st",       NULL,       NULL,       0,            0,           1,         1,        -1 },
 };
 
 /* layout(s) */
@@ -47,8 +47,8 @@ static const Layout layouts[] = {
 /* key definitions */
 #define MODKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
-	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
-	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} },
+	{ MODKEY,                       KEY,      comboview,           {.ui = 1 << TAG} }, \
+	{ MODKEY|ShiftMask,             KEY,      combotag,            {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -57,7 +57,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0";
 
 static const char *dmenucmd[] = { "menu", "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, "-l 10", NULL };
-static const char *termcmd[]  = { "urxvt", "-e", "tmux", NULL };
+static const char *termcmd[]  = { "st", "-e", "tmux", NULL };
 static const char *raisevolumecmd[] = {"volume", "+"};
 static const char *lowervolumecmd[] = {"volume", "-"};
 
@@ -68,8 +68,6 @@ static Key keys[] = {
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	//{ MODKEY,                       XK_h,      focusmaster,    {0} },
-	//{ MODKEY,                       XK_l,      unfocusmaster,  {0} },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_h,      setmfact,       {.f = -0.05} },
@@ -88,6 +86,14 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY|ControlMask,           XK_j, 	   moveresize,     {.v  =  "0x 80y 0w 0h"}},
+	{ MODKEY|ControlMask,           XK_k,  	   moveresize,     {.v  =  "0x -80y 0w 0h"}},
+	{ MODKEY|ControlMask,           XK_l,  	   moveresize,     {.v  =  "80x 0y 0w 0h"}},
+	{ MODKEY|ControlMask,           XK_h,  	   moveresize,     {.v  =  "-80x 0y 0w 0h"}},
+	{ MODKEY|ControlMask|ShiftMask, XK_j,  	   moveresize,     {.v  =  "0x 0y 0w 80h"}},
+	{ MODKEY|ControlMask|ShiftMask, XK_k,  	   moveresize,     {.v  =  "0x 0y 0w -80h"}},
+	{ MODKEY|ControlMask|ShiftMask, XK_l,  	   moveresize,     {.v  =  "0x 0y 80w 0h"}},
+	{ MODKEY|ControlMask|ShiftMask, XK_h,  	   moveresize,     {.v  =  "0x 0y -80w 0h"}},
 	{ NULL, XF86XK_AudioRaiseVolume          , spawn,          {.v = raisevolumecmd } },
 	{ NULL, XF86XK_AudioLowerVolume          , spawn,          {.v = lowervolumecmd } },
 	TAGKEYS(                        XK_1,                      0)

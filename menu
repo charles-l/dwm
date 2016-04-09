@@ -15,16 +15,16 @@ function joinstr(t, start_i)
 end
 
 options = {
-  term = "urxvt";
-  edit = "urxvt -e vim";
-  minweb = "urxvt -e w3m";
-  web = "chromium";
-  play = "sc qaddpl `sc pl | grep starred | cut -d '|' -f1` && sc qrand && sc play 0";
+  term = "st";
+  edit = "st -e vim";
+  minweb = "st -e w3m";
+  web = "qutebrowser";
+  pause = "mpc toggle";
   spotify = "spotify";
-  steam = "steam";
+  steam = "steam2";
   loc = "loc";
-  pause = "sc pause";
-  settings = "urxvt -e sh -c 'cd ~/dev/dwm && vim config.h && sudo make install'";
+  chromium = "chromium";
+  settings = "st -e sh -c 'cd ~/dev/dwm && vim config.h && sudo make install'";
 }
 
 o = "run\n"
