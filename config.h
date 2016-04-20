@@ -26,10 +26,10 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   isterminal noswallow monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           0,         0,        -1 },
-	{ "Chromium", NULL,       NULL,       1 << 8,       0,           0,         0,        -1 },
-	{ "st",       NULL,       NULL,       0,            0,           1,         1,        -1 },
+	/* class         instance    title       tags mask     isfloating   isterminal noswallow monitor */
+	{ "Gimp",        NULL,       NULL,       0,            1,           0,         0,        -1 },
+	{ "Chromium",    NULL,       NULL,       1 << 8,       0,           0,         0,        -1 },
+	{ "st-", 		 NULL,       NULL,       0,            0,           1,         1,        -1 },
 };
 
 /* layout(s) */
@@ -94,8 +94,8 @@ static Key keys[] = {
 	{ MODKEY|ControlMask|ShiftMask, XK_k,  	   moveresize,     {.v  =  "0x 0y 0w -80h"}},
 	{ MODKEY|ControlMask|ShiftMask, XK_l,  	   moveresize,     {.v  =  "0x 0y 80w 0h"}},
 	{ MODKEY|ControlMask|ShiftMask, XK_h,  	   moveresize,     {.v  =  "0x 0y -80w 0h"}},
-	{ NULL, XF86XK_AudioRaiseVolume          , spawn,          {.v = raisevolumecmd } },
-	{ NULL, XF86XK_AudioLowerVolume          , spawn,          {.v = lowervolumecmd } },
+	{ 0, XF86XK_AudioRaiseVolume          , spawn,          {.v = raisevolumecmd } },
+	{ 0, XF86XK_AudioLowerVolume          , spawn,          {.v = lowervolumecmd } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
